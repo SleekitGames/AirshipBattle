@@ -18,5 +18,5 @@ class AIRSHIPBATTLE_API AAirshipPlayerController : public APlayerController
 public:
 	AAirship* GetControlledAirship() const;
 	
-	
+	virtual void BeginPlay() override;
 };
