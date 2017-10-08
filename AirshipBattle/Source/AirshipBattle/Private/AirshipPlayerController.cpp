@@ -40,7 +40,17 @@ void AAirshipPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledAirship()) { return; }
 
-	//Get world location through crosshair
-	//if it hits the landscape
-	//tell the cannon to aim at the location 
+	FVector HitLocation; // Out parameter
+	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace
+	{
+		UE_LOG(LogTemp, Warning, TEXT("HitLoaction: %s"), *HitLocation.ToString());
+		// TODO Tell controlled airship to aim at this point
+	}
+}
+
+// Get world location of linetrace through crosshair, true if hits landscape
+bool AAirshipPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
+{
+	HitLocation = FVector(1.0);
+	return true;
 }

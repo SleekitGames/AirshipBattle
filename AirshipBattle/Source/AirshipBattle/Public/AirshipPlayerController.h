@@ -22,9 +22,13 @@ public:
 	//BEGINPLAY
 	virtual void BeginPlay() override;
 
+
 	//TICK
 	virtual void Tick(float DeltaTime) override;
 
 	//Start the airship moving the cannon so a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
+	
+	//return an out parameter - true if hit landscape
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 };
