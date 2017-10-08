@@ -2,25 +2,33 @@
 
 #include "AirshipAIController.h"
 #include "AirshipBattle.h"
+#include "Engine/World.h"
 
 
 void AAirshipAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto ControlledAirship = GetControlledAirship();
-	if (!ControlledAirship)
+	auto PlayerAirship = GetPlayerAirship();
+	if (!PlayerAirship)
 	{
-		UE_LOG(LogTemp, Error, TEXT("AIController Not Possessing An Airship"));
+		UE_LOG(LogTemp, Error, TEXT("AIController can't find player Airship"));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController Possessing: %s"), *(ControlledAirship->GetName()));
+		UE_LOG(LogTemp, Warning, TEXT("AIController found: %s"), *(PlayerAirship->GetName()));
 	}
 }
 
 AAirship* AAirshipAIController::GetControlledAirship() const
 {
 	return Cast<AAirship>(GetPawn());
+}
+
+AAirship* AAirshipAIController::GetPlayerAirship() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (!PlayerPawn) { return nullptr; }
+	return Cast<AAirship>(PlayerPawn);
 }
 

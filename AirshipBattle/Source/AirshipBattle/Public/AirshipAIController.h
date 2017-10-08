@@ -15,8 +15,9 @@ class AIRSHIPBATTLE_API AAirshipAIController : public AAIController
 {
 	GENERATED_BODY()
 
-public:
-	AAirship* GetControlledAirship() const;
-
+private:
+	
 	virtual void BeginPlay() override;
+	AAirship* GetControlledAirship() const;
+	AAirship* GetPlayerAirship() const;
 };
