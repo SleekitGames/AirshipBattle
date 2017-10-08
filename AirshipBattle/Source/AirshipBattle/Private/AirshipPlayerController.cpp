@@ -4,6 +4,12 @@
 #include "AirshipBattle.h"
 
 
+//Tick
+//Super
+//AimTowardsCrosshair
+
+
+
 void AAirshipPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
@@ -19,7 +25,22 @@ void AAirshipPlayerController::BeginPlay()
 	}
 }
 
+void AAirshipPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+
 AAirship* AAirshipPlayerController::GetControlledAirship() const 
 {
 	return Cast<AAirship>(GetPawn());
+}
+
+void AAirshipPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledAirship()) { return; }
+
+	//Get world location through crosshair
+	//if it hits the landscape
+	//tell the cannon to aim at the location 
 }

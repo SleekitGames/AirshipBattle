@@ -16,7 +16,15 @@ class AIRSHIPBATTLE_API AAirshipPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
+
 	AAirship* GetControlledAirship() const;
 	
+	//BEGINPLAY
 	virtual void BeginPlay() override;
+
+	//TICK
+	virtual void Tick(float DeltaTime) override;
+
+	//Start the airship moving the cannon so a shot would hit where the crosshair intersects the world
+	void AimTowardsCrosshair();
 };
