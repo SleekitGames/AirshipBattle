@@ -32,3 +32,15 @@ AAirship* AAirshipAIController::GetPlayerAirship() const
 	return Cast<AAirship>(PlayerPawn);
 }
 
+void AAirshipAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerAirship())
+	{
+		//TODO Move towards the player
+		//Aim at the player
+		GetControlledAirship()->AimAt(GetPlayerAirship()->GetActorLocation());
+		//Fire if ready
+	}
+
+}

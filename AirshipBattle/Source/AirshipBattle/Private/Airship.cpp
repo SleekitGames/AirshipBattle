@@ -32,3 +32,8 @@ void AAirship::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void AAirship::AimAt(FVector HitLocation)
+{
+	auto OurAirshipName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at: %s"), *OurAirshipName, *HitLocation.ToString());
+}

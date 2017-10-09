@@ -18,6 +18,9 @@ class AIRSHIPBATTLE_API AAirshipAIController : public AAIController
 private:
 	
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 	AAirship* GetControlledAirship() const;
 	AAirship* GetPlayerAirship() const;
+
+
 };
