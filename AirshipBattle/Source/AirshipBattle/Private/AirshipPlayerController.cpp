@@ -43,7 +43,7 @@ void AAirshipPlayerController::AimTowardsCrosshair()
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
 		// TODO Tell controlled airship to aim at this point
 	}
 }
@@ -62,10 +62,12 @@ bool AAirshipPlayerController::GetSightRayHitLocation(FVector& HitLocation) cons
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *LookDirection.ToString());
+		//linetrace along look direction - see what we hit.
+		GetLookVectorHitLocation(LookDirection, HitLocation);
+		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *LookDirection.ToString());
 	}
 
-	//linetrace along look direction - see what we hit.
+	
 	return true;
 }
 
@@ -78,4 +80,23 @@ bool AAirshipPlayerController::GetLookDirection(FVector2D ScreenLocation, FVecto
 		CameraWorldLocation,
 		LookDirection);
 	
+}
+
+
+bool AAirshipPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + LookDirection * LineTraceRange;
+	if(GetWorld()->LineTraceSingleByChannel(
+			HitResult,
+			StartLocation,
+			EndLocation,
+			ECollisionChannel::ECC_Visibility)
+		)
+	{
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	return false; // Line trace didn't succeed
 }
