@@ -37,10 +37,7 @@ void UAirshipAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 }
 
-void UAirshipAimingComponent::AimAt(FVector HitLocation)
+void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	auto OurAirshipName = GetOwner()->GetName();
-	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s aiming at: %s from %s"), *OurAirshipName, *HitLocation.ToString(), *BarrelLocation);
-
+	UE_LOG(LogTemp, Warning, TEXT("Firing at %f"), LaunchSpeed);
 }

@@ -36,7 +36,7 @@ void AAirship::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AAirship::AimAt(FVector HitLocation)
 {
-	AirshipAimingComponent->AimAt(HitLocation);
+	AirshipAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void AAirship::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
