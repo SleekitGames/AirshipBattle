@@ -15,6 +15,9 @@ class AIRSHIPBATTLE_API AAirship : public APawn
 public:
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BLueprintCallable, Category = Setup)
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
 protected:
 	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
 

@@ -14,6 +14,11 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 }
 
 
+void UAirshipAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+{
+	Barrel = BarrelToSet;
+}
+
 // Called when the game starts
 void UAirshipAimingComponent::BeginPlay()
 {
@@ -35,6 +40,7 @@ void UAirshipAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType
 void UAirshipAimingComponent::AimAt(FVector HitLocation)
 {
 	auto OurAirshipName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s aiming at: %s"), *OurAirshipName, *HitLocation.ToString());
+	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at: %s from %s"), *OurAirshipName, *HitLocation.ToString(), *BarrelLocation);
 
 }
