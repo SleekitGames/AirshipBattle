@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AirshipAimingComponent.h"
 #include "GameFramework/Pawn.h"
-#include "Airship.generated.h"
+#include "Airship.generated.h" //must be last include - add others before
 
 UCLASS()
 class AIRSHIPBATTLE_API AAirship : public APawn
@@ -13,6 +14,9 @@ class AIRSHIPBATTLE_API AAirship : public APawn
 
 public:
 	void AimAt(FVector HitLocation);
+
+protected:
+	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
