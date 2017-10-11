@@ -7,6 +7,8 @@
 #include "GameFramework/Pawn.h"
 #include "Airship.generated.h" //must be last include - add others before
 
+class UAirshipBarrel; //forward declaration
+
 UCLASS()
 class AIRSHIPBATTLE_API AAirship : public APawn
 {
@@ -16,7 +18,7 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BLueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
 
 protected:
 	UAirshipAimingComponent* AirshipAimingComponent = nullptr;

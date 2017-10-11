@@ -39,7 +39,7 @@ void AAirship::AimAt(FVector HitLocation)
 	AirshipAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
-void AAirship::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void AAirship::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 {
 	AirshipAimingComponent->SetBarrelReference(BarrelToSet);
 }

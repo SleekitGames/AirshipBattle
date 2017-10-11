@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "AirshipAimingComponent.generated.h"
 
+class UAirshipBarrel; //forward declaration
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
@@ -23,7 +24,7 @@ public:
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 private:
-	UStaticMeshComponent* Barrel = nullptr;
+	UAirshipBarrel* Barrel = nullptr;
 	
 	void MoveBarrelTowards(FVector AimDirection);
 };
