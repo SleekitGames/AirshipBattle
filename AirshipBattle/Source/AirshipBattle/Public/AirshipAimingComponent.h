@@ -6,25 +6,27 @@
 #include "Components/ActorComponent.h"
 #include "AirshipAimingComponent.generated.h"
 
-class UAirshipBarrel; //forward declaration
+//forward declaration
+class UAirshipBarrel; //Holds barrel's properties and elevate method
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UAirshipAimingComponent();
 
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
 
-//TODO add SetTurretReference
+	// TODO add SetTurretReference
 
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 private:
 	UAirshipBarrel* Barrel = nullptr;
-	
+
 	void MoveBarrelTowards(FVector AimDirection);
+
 };

@@ -15,7 +15,6 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 	// ...
 }
 
-
 void UAirshipAimingComponent::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
@@ -24,6 +23,7 @@ void UAirshipAimingComponent::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	if (!Barrel) { return; }
+
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
@@ -35,21 +35,20 @@ void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		LaunchSpeed,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
-
 	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
-	//if no solution found, do nothing.
+	// If no solution found do nothing
 }
 
 void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
+	// Work-out difference between current barrel roation, and AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(5); //TODO remove magic number!
-
+	Barrel->Elevate(5); // TODO remove magic number
 }
