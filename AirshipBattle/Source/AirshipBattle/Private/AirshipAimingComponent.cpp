@@ -2,6 +2,7 @@
 
 #include "AirshipAimingComponent.h"
 #include "AirshipBarrel.h"
+#include "AirshipTurret.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -20,10 +21,15 @@ void UAirshipAimingComponent::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
+void UAirshipAimingComponent::SetTurretReference(UAirshipTurret* TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	if (!Barrel) { return; }
-
+	if (!Turret) { return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
@@ -42,6 +48,7 @@ void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
+		MoveTurretTowards(AimDirection);
 
 		auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: aim solution found"), Time);
@@ -61,5 +68,15 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(DeltaRotator.Pitch);
+	Barrel->Turn(DeltaRotator.Pitch); //TODO - work out pitch/yaw/roll
+}
+
+void UAirshipAimingComponent::MoveTurretTowards(FVector AimDirection)
+{
+	// Work-out difference between current barrel roation, and AimDirection
+	auto TurretRotator = Turret->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - TurretRotator;
+
+	Turret->Elevate(DeltaRotator.Pitch); //TODO - work out pitch/yaw/roll
 }

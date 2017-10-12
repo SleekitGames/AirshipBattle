@@ -2,14 +2,14 @@
 
 #include "AirshipBarrel.h"
 
-void UAirshipBarrel::Elevate(float RelativeSpeed)
+void UAirshipBarrel::Turn(float RelativeSpeed)
 {
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
-	auto ElevationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
-	auto RawNewElevation = RelativeRotation.Pitch + ElevationChange;
-	auto Elevation = FMath::Clamp<float>(RawNewElevation, MinElevationDegrees, MaxElevationDegrees);
+	auto TurnChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+	auto RawNewTurn = RelativeRotation.Yaw + TurnChange;
+	auto Turn = FMath::Clamp<float>(RawNewTurn, MinTurnDegrees, MaxTurnDegrees);
 
-	SetRelativeRotation(FRotator(Elevation, 0, 0));
+	SetRelativeRotation(FRotator(0, Turn, Turn));
 }
 
 

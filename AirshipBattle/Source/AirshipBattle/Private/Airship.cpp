@@ -37,3 +37,8 @@ void AAirship::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 {
 	AirshipAimingComponent->SetBarrelReference(BarrelToSet);
 }
+
+void AAirship::SetTurretReference(UAirshipTurret* TurretToSet)
+{
+	AirshipAimingComponent->SetTurretReference(TurretToSet);
+}

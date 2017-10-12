@@ -8,6 +8,7 @@
 
 //forward declaration
 class UAirshipBarrel; //Holds barrel's properties and elevate method
+class UAirshipTurret; //Holds turret's properties and elevate method TODO 
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
@@ -20,13 +21,17 @@ public:
 
 	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
 
+	void SetTurretReference(UAirshipTurret* TurretToSet);
+
 	// TODO add SetTurretReference
 
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 private:
 	UAirshipBarrel* Barrel = nullptr;
-
 	void MoveBarrelTowards(FVector AimDirection);
+
+	UAirshipTurret* Turret = nullptr;
+	void MoveTurretTowards(FVector AimDirection);
 
 };

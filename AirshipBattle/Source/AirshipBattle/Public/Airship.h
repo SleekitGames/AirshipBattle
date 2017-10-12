@@ -7,7 +7,8 @@
 #include "Airship.generated.h" //must be last include - add others before
 
 class UAirshipBarrel; //forward declaration
-class UAirshipAimingComponent;
+class UAirshipTurret; //forward declaration
+class UAirshipAimingComponent; //forward declaration
 
 UCLASS()
 class AIRSHIPBATTLE_API AAirship : public APawn
@@ -19,6 +20,9 @@ public:
 
 	UFUNCTION(BLueprintCallable, Category = Setup)
 	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
+
+	UFUNCTION(BLueprintCallable, Category = Setup)
+	void SetTurretReference(UAirshipTurret* TurretToSet);
 
 protected:
 	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
