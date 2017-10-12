@@ -2,9 +2,8 @@
 
 #include "AirshipBarrel.h"
 
-void UAirshipBarrel::Elevate(float DegreesPerSecond)
+void UAirshipBarrel::Elevate(float RelativeSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Barrel elevate called at speed %f"), DegreesPerSecond);
 }
 
 
