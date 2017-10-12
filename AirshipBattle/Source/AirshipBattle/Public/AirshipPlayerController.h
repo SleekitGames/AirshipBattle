@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Airship.h"
 #include "GameFramework/PlayerController.h"
 #include "AirshipPlayerController.generated.h" //must be last include
+
+class AAirship;
 
 /**
  * 

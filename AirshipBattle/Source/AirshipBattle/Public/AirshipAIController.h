@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Airship.h"
 #include "AIController.h"
 #include "AirshipAIController.generated.h"
+
+class AAirship;
 
 /**
  * 

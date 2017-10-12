@@ -2,6 +2,7 @@
 
 #include "AirshipAIController.h"
 #include "AirshipBattle.h"
+#include "Airship.h"
 #include "Engine/World.h"
 
 

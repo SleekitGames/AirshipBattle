@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AirshipAimingComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Airship.generated.h" //must be last include - add others before
 
 class UAirshipBarrel; //forward declaration
+class UAirshipAimingComponent;
 
 UCLASS()
 class AIRSHIPBATTLE_API AAirship : public APawn

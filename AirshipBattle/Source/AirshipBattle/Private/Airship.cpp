@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Airship.h"
-
+#include "AirshipAimingComponent.h"
 
 // Sets default values
 AAirship::AAirship()
