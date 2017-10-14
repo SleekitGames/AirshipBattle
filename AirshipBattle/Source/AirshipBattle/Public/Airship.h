@@ -9,6 +9,7 @@
 class UAirshipBarrel; //forward declaration
 class UAirshipTurret; //forward declaration
 class UAirshipAimingComponent; //forward declaration
+class AProjectile; //forward declaration
 
 UCLASS()
 class AIRSHIPBATTLE_API AAirship : public APawn
@@ -42,5 +43,11 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 10000; //100m/s TODO find sensible default speed.
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	//Local barrel reference for spawning projectile
+	UAirshipBarrel* Barrel = nullptr;
 	
 };

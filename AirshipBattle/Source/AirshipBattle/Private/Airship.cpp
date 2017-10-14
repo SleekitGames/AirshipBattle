@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Airship.h"
+#include "AirshipBarrel.h"
+#include "Projectile.h"
 #include "AirshipAimingComponent.h"
 
 // Sets default values
@@ -36,6 +38,7 @@ void AAirship::AimAt(FVector HitLocation)
 void AAirship::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 {
 	AirshipAimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 void AAirship::SetTurretReference(UAirshipTurret* TurretToSet)
@@ -47,4 +50,13 @@ void AAirship::Fire()
 {
 	auto Time = GetWorld()->GetTimeSeconds();
 	UE_LOG(LogTemp, Warning, TEXT("%f: Airship fires"), Time);
+
+	if (!Barrel) { return; }
+
+	//spawn a projectile at the socket location on the barrel
+	GetWorld()->SpawnActor<AProjectile>(
+		ProjectileBlueprint,
+		Barrel->GetSocketLocation(FName("Projectile")),
+		Barrel->GetSocketRotation(FName("Projectile"))
+		);
 }
