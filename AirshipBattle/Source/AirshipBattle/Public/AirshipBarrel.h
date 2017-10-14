@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
+UCLASS(meta = (BlueprintSpawnableComponent))
 class AIRSHIPBATTLE_API UAirshipBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
