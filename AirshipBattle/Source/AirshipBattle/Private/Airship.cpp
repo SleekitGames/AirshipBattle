@@ -42,3 +42,9 @@ void AAirship::SetTurretReference(UAirshipTurret* TurretToSet)
 {
 	AirshipAimingComponent->SetTurretReference(TurretToSet);
 }
+
+void AAirship::Fire()
+{
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f: Airship fires"), Time);
+}

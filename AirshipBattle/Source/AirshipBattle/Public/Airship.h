@@ -24,6 +24,9 @@ public:
 	UFUNCTION(BLueprintCallable, Category = Setup)
 	void SetTurretReference(UAirshipTurret* TurretToSet);
 
+	UFUNCTION(BLueprintCallable, Category = Firing)
+	void Fire();
+
 protected:
 	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
 
