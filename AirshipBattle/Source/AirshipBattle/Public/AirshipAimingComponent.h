@@ -20,18 +20,13 @@ public:
 	UAirshipAimingComponent();
 
 	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
-
 	void SetTurretReference(UAirshipTurret* TurretToSet);
-
-	// TODO add SetTurretReference
 
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 private:
 	UAirshipBarrel* Barrel = nullptr;
-	void MoveBarrelTowards(FVector AimDirection);
-
 	UAirshipTurret* Turret = nullptr;
+	void MoveBarrelTowards(FVector AimDirection);
 	void MoveTurretTowards(FVector AimDirection);
-
 };

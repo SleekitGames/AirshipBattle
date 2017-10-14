@@ -11,18 +11,20 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true; //TODO should this really tick??
+	PrimaryComponentTick.bCanEverTick = false; 
 
 	// ...
 }
 
 void UAirshipAimingComponent::SetBarrelReference(UAirshipBarrel* BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
 }
 
 void UAirshipAimingComponent::SetTurretReference(UAirshipTurret* TurretToSet)
 {
+	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
 }
 
@@ -48,7 +50,6 @@ void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		MoveTurretTowards(AimDirection);
 
 		auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: aim solution found"), Time);
@@ -68,15 +69,6 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Turn(DeltaRotator.Pitch); //TODO - work out pitch/yaw/roll
-}
-
-void UAirshipAimingComponent::MoveTurretTowards(FVector AimDirection)
-{
-	// Work-out difference between current barrel roation, and AimDirection
-	auto TurretRotator = Turret->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - TurretRotator;
-
-	Turret->Elevate(DeltaRotator.Pitch); //TODO - work out pitch/yaw/roll
+	Barrel->Rotate(DeltaRotator.Yaw);
+	Turret->Elevate(DeltaRotator.Pitch);
 }

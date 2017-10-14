@@ -17,15 +17,15 @@ class AIRSHIPBATTLE_API UAirshipBarrel : public UStaticMeshComponent
 public:
 
 	//-1 = max downward movement. +1 = max upward movement
-	void Turn(float RelativeSpeed);
+	void Rotate(float RelativeSpeed);
 
 private:
 	UPROPERTY(EditAnywhere, Category = Setup)
 		float MaxDegreesPerSecond = 20;
 
 	UPROPERTY(EditAnywhere, Category = Setup)
-		float MaxTurnDegrees = 60;
+		float MaxRotateDegrees = 60;
 
 	UPROPERTY(EditAnywhere, Category = Setup)
-		float MinTurnDegrees = -60;
+		float MinRotateDegrees = -60;
 };
