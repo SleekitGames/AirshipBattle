@@ -9,5 +9,10 @@ void UAirshipRotor::SetThrottle(float Throttle)
 	UE_LOG(LogTemp, Warning, TEXT("%s: throttle: %f"), *Name, Throttle);
 
 	//TODO clamp actual throttle value so player can't overdrive
+
+	auto ForceApplied = GetForwardVector() * Throttle * RotorMaxDrivingForce;
+	auto ForceLocation = GetComponentLocation();
+	auto AirshipRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	AirshipRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
 

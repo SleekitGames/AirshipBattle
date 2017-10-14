@@ -18,6 +18,8 @@ public:
 	UFUNCTION(BlueprintCallable,Category = Input)
 	void SetThrottle(float Throttle);
 
-	
+	//Max force per rotor in Newtons
+	UPROPERTY(EditDefaultsOnly, Category = Input)
+		float RotorMaxDrivingForce = 100000;
 	
 };
