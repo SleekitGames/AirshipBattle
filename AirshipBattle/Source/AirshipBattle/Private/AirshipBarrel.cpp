@@ -7,8 +7,7 @@ void UAirshipBarrel::Rotate(float RelativeSpeed)
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
 	auto RotateChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
 	auto RawNewRotate = RelativeRotation.Yaw + RotateChange;
-	//auto Rotate = FMath::Clamp<float>(RawNewRotate, MinRotateDegrees, MaxRotateDegrees);
-	auto Rotate = RawNewRotate;
+	auto Rotate = FMath::Clamp<float>(RawNewRotate, MinRotateDegrees, MaxRotateDegrees);
 	SetRelativeRotation(FRotator(0, Rotate, 0));
 }
 

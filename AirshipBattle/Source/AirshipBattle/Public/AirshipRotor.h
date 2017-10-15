@@ -20,6 +20,6 @@ public:
 
 	//Max force per rotor in Newtons
 	UPROPERTY(EditDefaultsOnly, Category = Input)
-		float RotorMaxDrivingForce = 100000;
+		float RotorMaxDrivingForce = 500000;
 	
 };
