@@ -5,7 +5,6 @@
 
 void UAirshipMovementComponent::Initialise(UAirshipRotor* UpperPortRotorToSet, UAirshipRotor* LowerPortRotorToSet, UAirshipRotor* UpperStarboardRotorToSet, UAirshipRotor* LowerStarboardRotorToSet)
 {
-	if (!UpperPortRotorToSet || !LowerPortRotorToSet || !UpperStarboardRotorToSet || !LowerStarboardRotorToSet) { return; }
 	UpperPortRotor = UpperPortRotorToSet;
 	LowerPortRotor = LowerPortRotorToSet;
 	UpperStarboardRotor = UpperStarboardRotorToSet;
@@ -15,13 +14,23 @@ void UAirshipMovementComponent::Initialise(UAirshipRotor* UpperPortRotorToSet, U
 
 void UAirshipMovementComponent::IntendMoveForward(float Throw)
 {
-	//auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"),Throw);
-
+	if (!UpperPortRotor || !LowerPortRotor || !UpperStarboardRotor || !LowerStarboardRotor) { return; }
 	UpperPortRotor->SetThrottle(Throw);
 	LowerPortRotor->SetThrottle(Throw);
 	UpperStarboardRotor->SetThrottle(Throw);
 	LowerStarboardRotor->SetThrottle(Throw);
+
+	// TODO prevent double speed with dual control use
 }
 
+void UAirshipMovementComponent::IntendTurnRight(float Throw)
+{
+	if (!UpperPortRotor || !LowerPortRotor || !UpperStarboardRotor || !LowerStarboardRotor) { return; }
+	UpperPortRotor->SetThrottle(Throw);
+	LowerPortRotor->SetThrottle(Throw);
+	UpperStarboardRotor->SetThrottle(-Throw);
+	LowerStarboardRotor->SetThrottle(-Throw);
+
+	// TODO prevent double speed with dual control use
+}
 
