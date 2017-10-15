@@ -15,10 +15,13 @@ UCLASS()
 class AIRSHIPBATTLE_API AAirshipPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
-private:
 
-	AAirship* GetControlledAirship() const;
+
+protected:
+		UFUNCTION(BlueprintCallable, Category = "Setup")
+		AAirship* GetControlledAirship() const;
+
+private:
 	
 	//BEGINPLAY
 	virtual void BeginPlay() override;

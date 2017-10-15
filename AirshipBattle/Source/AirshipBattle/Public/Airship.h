@@ -30,6 +30,7 @@ public:
 	void Fire();
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
 	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
