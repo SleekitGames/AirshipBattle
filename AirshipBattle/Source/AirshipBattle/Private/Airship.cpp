@@ -4,6 +4,7 @@
 #include "AirshipBarrel.h"
 #include "Projectile.h"
 #include "AirshipAimingComponent.h"
+#include "AirshipMovementComponent.h"
 
 // Sets default values
 AAirship::AAirship()
@@ -13,6 +14,8 @@ AAirship::AAirship()
 
 	// No need to protect pointers as added at construction
 	AirshipAimingComponent = CreateDefaultSubobject<UAirshipAimingComponent>(FName("Aiming Component")); 
+	AirshipMovementComponent = CreateDefaultSubobject<UAirshipMovementComponent>(FName("Movement Component"));
+
 }
 
 // Called when the game starts or when spawned

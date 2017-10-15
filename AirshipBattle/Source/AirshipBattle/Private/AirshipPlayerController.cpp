@@ -14,16 +14,6 @@
 void AAirshipPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
-
-	auto ControlledAirship = GetControlledAirship();
-	if (!ControlledAirship)
-	{
-		UE_LOG(LogTemp, Error, TEXT("PlayerController Not Possessing An Airship"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController Possessing: %s"), *(ControlledAirship->GetName()));
-	}
 }
 
 void AAirshipPlayerController::Tick(float DeltaTime)
