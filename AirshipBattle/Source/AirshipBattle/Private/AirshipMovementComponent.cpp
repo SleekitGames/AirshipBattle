@@ -16,9 +16,12 @@ void UAirshipMovementComponent::RequestDirectMove(const FVector& MoveVelocity, b
 	//no need to call Super as we're replacing functionality
 	auto AirshipForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
-	auto ForwardThrow = FVector::DotProduct(AirshipForward, AIForwardIntention);
 
+	auto ForwardThrow = FVector::DotProduct(AirshipForward, AIForwardIntention);
 	IntendMoveForward(ForwardThrow);
+
+	auto RightThrow = FVector::CrossProduct(AirshipForward, AIForwardIntention).Z;
+	IntendTurnRight(RightThrow);
 
 	//UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *AirshipName, *MoveVelocityString)
 }
