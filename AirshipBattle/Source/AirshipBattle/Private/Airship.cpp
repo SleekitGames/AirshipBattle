@@ -14,7 +14,6 @@ AAirship::AAirship()
 
 	// No need to protect pointers as added at construction
 	AirshipAimingComponent = CreateDefaultSubobject<UAirshipAimingComponent>(FName("Aiming Component")); 
-	AirshipMovementComponent = CreateDefaultSubobject<UAirshipMovementComponent>(FName("Movement Component"));
 
 }
 
