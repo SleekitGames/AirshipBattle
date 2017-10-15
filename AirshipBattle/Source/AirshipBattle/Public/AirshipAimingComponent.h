@@ -6,6 +6,15 @@
 #include "Components/ActorComponent.h"
 #include "AirshipAimingComponent.generated.h"
 
+//ENum for aiming state
+UENUM()
+enum class EFiringState : uint8
+	{
+		Loading,
+		Aiming,
+		ReadyToFire
+	};
+
 //forward declaration
 class UAirshipBarrel; //Holds barrel's properties and elevate method
 class UAirshipTurret; //Holds turret's properties and elevate method TODO 
@@ -23,6 +32,10 @@ public:
 	void SetTurretReference(UAirshipTurret* TurretToSet);
 
 	void AimAt(FVector HitLocation, float LaunchSpeed);
+
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState = EFiringState::Loading;
 
 private:
 	UAirshipBarrel* Barrel = nullptr;
