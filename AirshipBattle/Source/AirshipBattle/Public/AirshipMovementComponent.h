@@ -24,6 +24,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 		void IntendTurnRight(float Throw);
 
+	//TODO check best protection method
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+
+
 private:
 	UAirshipRotor* UpperPortRotor = nullptr;
 	UAirshipRotor* LowerPortRotor = nullptr;

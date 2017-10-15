@@ -20,9 +20,12 @@ void AAirshipAIController::Tick(float DeltaTime)
 
 	if (PlayerAirship)
 	{
-		//TODO Move towards the player
+		//Move towards the player
+		MoveToActor(PlayerAirship, AcceptanceRadius); //TODO check radius is in cm
+
+
 		//Aim at the player
 		ControlledAirship->AimAt(PlayerAirship->GetActorLocation());
-		ControlledAirship->Fire(); // TODO don't fire every frame!
+		ControlledAirship->Fire(); // TODO - don't fire at time 0
 	}
 }

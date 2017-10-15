@@ -11,7 +11,13 @@ void UAirshipMovementComponent::Initialise(UAirshipRotor* UpperPortRotorToSet, U
 	LowerStarboardRotor = LowerStarboardRotorToSet;
 }
 
-
+void UAirshipMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	//no need to call Super as we're replacing functionality
+	auto AirshipName = GetOwner()->GetName();
+	auto MoveVelocityString = MoveVelocity.ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *AirshipName, *MoveVelocityString)
+}
 void UAirshipMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!UpperPortRotor || !LowerPortRotor || !UpperStarboardRotor || !LowerStarboardRotor) { return; }
