@@ -6,6 +6,8 @@
 #include "GameFramework/NavMovementComponent.h"
 #include "AirshipMovementComponent.generated.h"
 
+class UAirshipRotor;
+
 /**
  * responsible for driving the airship rotors
  */
@@ -15,20 +17,19 @@ class AIRSHIPBATTLE_API UAirshipMovementComponent : public UNavMovementComponent
 	GENERATED_BODY()
 public:
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UAirshipRotor* UpperPortRotorToSet, UAirshipRotor* LowerPortRotorToSet, UAirshipRotor* UpperStarboardRotorToSet, UAirshipRotor* LowerStarboardRotorToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 		void IntendMoveForward(float Throw);
 
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 		void IntendTurnRight(float Throw);
 
-	//TODO check best protection method
+private:
+	// called from the pathfinding logic by the AI controllers
 	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 
-
-private:
 	UAirshipRotor* UpperPortRotor = nullptr;
 	UAirshipRotor* LowerPortRotor = nullptr;
 	UAirshipRotor* UpperStarboardRotor = nullptr;

@@ -22,8 +22,6 @@ void UAirshipMovementComponent::RequestDirectMove(const FVector& MoveVelocity, b
 
 	auto RightThrow = FVector::CrossProduct(AirshipForward, AIForwardIntention).Z;
 	IntendTurnRight(RightThrow);
-
-	//UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *AirshipName, *MoveVelocityString)
 }
 void UAirshipMovementComponent::IntendMoveForward(float Throw)
 {
