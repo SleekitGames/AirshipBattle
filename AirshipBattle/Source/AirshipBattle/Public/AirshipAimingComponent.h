@@ -25,11 +25,8 @@ class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
-	UAirshipAimingComponent();
-
-	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
-	void SetTurretReference(UAirshipTurret* TurretToSet);
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet);
 
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
@@ -38,6 +35,9 @@ protected:
 	EFiringState FiringState = EFiringState::Loading;
 
 private:
+	// Sets default values for this component's properties
+	UAirshipAimingComponent();
+
 	UAirshipBarrel* Barrel = nullptr;
 	UAirshipTurret* Turret = nullptr;
 	void MoveBarrelTowards(FVector AimDirection);

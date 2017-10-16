@@ -20,12 +20,6 @@ class AIRSHIPBATTLE_API AAirship : public APawn
 public:
 	void AimAt(FVector HitLocation);
 
-	UFUNCTION(BLueprintCallable, Category = Setup)
-	void SetBarrelReference(UAirshipBarrel* BarrelToSet);
-
-	UFUNCTION(BLueprintCallable, Category = Setup)
-	void SetTurretReference(UAirshipTurret* TurretToSet);
-
 	UFUNCTION(BLueprintCallable, Category = Firing)
 	void Fire();
 
@@ -43,9 +37,6 @@ private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
@@ -55,8 +46,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 		float ReloadTimeInSeconds = 3;
 
-	//Local barrel reference for spawning projectile
-	UAirshipBarrel* Barrel = nullptr;
+	UAirshipBarrel* Barrel = nullptr; //TODO remove
 
 	double LastFireTime = 0;
 

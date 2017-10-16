@@ -16,16 +16,10 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 	// ...
 }
 
-void UAirshipAimingComponent::SetBarrelReference(UAirshipBarrel* BarrelToSet)
+void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet)
 {
-	if (!BarrelToSet) { return; }
-	Barrel = BarrelToSet;
-}
-
-void UAirshipAimingComponent::SetTurretReference(UAirshipTurret* TurretToSet)
-{
-	if (!TurretToSet) { return; }
-	Turret = TurretToSet;
+	Barrel = PortBarrelToSet;
+	Turret = PortTurretToSet;
 }
 
 void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
