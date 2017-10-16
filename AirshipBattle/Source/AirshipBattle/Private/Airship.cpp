@@ -4,7 +4,6 @@
 #include "AirshipBarrel.h"
 #include "Projectile.h"
 #include "AirshipAimingComponent.h"
-#include "AirshipMovementComponent.h"
 
 // Sets default values
 AAirship::AAirship()

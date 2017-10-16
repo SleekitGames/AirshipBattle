@@ -9,7 +9,6 @@
 class UAirshipBarrel; //forward declaration
 class UAirshipTurret; //forward declaration
 class UAirshipAimingComponent; //forward declaration
-class UAirshipMovementComponent; //forward declaration
 class AProjectile; //forward declaration
 
 UCLASS()
@@ -26,9 +25,6 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
-
-	UPROPERTY(BlueprintReadOnly)
-	UAirshipMovementComponent* AirshipMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
