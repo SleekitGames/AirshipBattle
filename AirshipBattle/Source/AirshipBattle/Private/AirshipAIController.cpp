@@ -18,7 +18,7 @@ void AAirshipAIController::Tick(float DeltaTime)
 	auto PlayerAirship = Cast<AAirship>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	auto ControlledAirship = Cast<AAirship>(GetPawn());
 
-	if (PlayerAirship)
+	if (ensure(PlayerAirship))
 	{
 		//Move towards the player
 		MoveToActor(PlayerAirship, AcceptanceRadius); //TODO check radius is in cm

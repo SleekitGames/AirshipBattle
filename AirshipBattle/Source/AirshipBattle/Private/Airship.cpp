@@ -26,15 +26,16 @@ void AAirship::BeginPlay()
 
 void AAirship::AimAt(FVector HitLocation)
 {
-	if (!AirshipAimingComponent) { return; }
+	if (!ensure(AirshipAimingComponent)) { return; }
 	AirshipAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void AAirship::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (Barrel && isReloaded)
+	if (isReloaded)
 	{
 		//spawn a projectile at the socket location on the barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(

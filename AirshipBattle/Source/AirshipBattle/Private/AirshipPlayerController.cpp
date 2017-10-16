@@ -16,7 +16,7 @@ void AAirshipPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	auto AimingComponent = GetControlledAirship()->FindComponentByClass<UAirshipAimingComponent>();
-	if (AimingComponent)
+	if (ensure(AimingComponent))
 	{
 		FoundAimingComponent(AimingComponent);
 	}
@@ -40,7 +40,7 @@ AAirship* AAirshipPlayerController::GetControlledAirship() const
 
 void AAirshipPlayerController::AimTowardsCrosshair()
 {
-	if (!GetControlledAirship()) { return; }
+	if (!ensure(GetControlledAirship())) { return; }
 
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace

@@ -25,7 +25,7 @@ void UAirshipMovementComponent::RequestDirectMove(const FVector& MoveVelocity, b
 }
 void UAirshipMovementComponent::IntendMoveForward(float Throw)
 {
-	if (!UpperPortRotor || !LowerPortRotor || !UpperStarboardRotor || !LowerStarboardRotor) { return; }
+	if (!ensure(UpperPortRotor && LowerPortRotor && !UpperStarboardRotor && LowerStarboardRotor)) { return; }
 	UpperPortRotor->SetThrottle(Throw);
 	LowerPortRotor->SetThrottle(Throw);
 	UpperStarboardRotor->SetThrottle(Throw);
@@ -36,7 +36,7 @@ void UAirshipMovementComponent::IntendMoveForward(float Throw)
 
 void UAirshipMovementComponent::IntendTurnRight(float Throw)
 {
-	if (!UpperPortRotor || !LowerPortRotor || !UpperStarboardRotor || !LowerStarboardRotor) { return; }
+	if (!ensure(UpperPortRotor && LowerPortRotor && !UpperStarboardRotor && LowerStarboardRotor)) { return; }
 	UpperPortRotor->SetThrottle(Throw);
 	LowerPortRotor->SetThrottle(Throw);
 	UpperStarboardRotor->SetThrottle(-Throw);
