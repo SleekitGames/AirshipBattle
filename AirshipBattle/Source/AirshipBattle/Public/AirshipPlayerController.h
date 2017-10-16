@@ -7,9 +7,10 @@
 #include "AirshipPlayerController.generated.h" //must be last include
 
 class AAirship;
+class UAirshipAimingComponent;
 
 /**
- * 
+ * Player camera controls and crosshair
  */
 UCLASS()
 class AIRSHIPBATTLE_API AAirshipPlayerController : public APlayerController
@@ -20,6 +21,9 @@ class AIRSHIPBATTLE_API AAirshipPlayerController : public APlayerController
 protected:
 		UFUNCTION(BlueprintCallable, Category = "Setup")
 		AAirship* GetControlledAirship() const;
+
+		UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+		void FoundAimingComponent(UAirshipAimingComponent* AimingComponentReference);
 
 private:
 	

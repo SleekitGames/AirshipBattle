@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "AirshipPlayerController.h"
+#include "AirshipAimingComponent.h"
 #include "Airship.h"
 #include "AirshipBattle.h"
 
@@ -14,6 +15,16 @@
 void AAirshipPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
+	auto AimingComponent = GetControlledAirship()->FindComponentByClass<UAirshipAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player controller can't find aiming component at Begin Play"));
+	}
+	FoundAimingComponent(AimingComponent);
 }
 
 void AAirshipPlayerController::Tick(float DeltaTime)
