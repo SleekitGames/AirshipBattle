@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "AirshipMovementComponent.h"
+#include "AirshipBattle.h"
 #include "AirshipRotor.h"
 
 void UAirshipMovementComponent::Initialise(UAirshipRotor* UpperPortRotorToSet, UAirshipRotor* LowerPortRotorToSet, UAirshipRotor* UpperStarboardRotorToSet, UAirshipRotor* LowerStarboardRotorToSet)

@@ -30,6 +30,6 @@ void AAirshipAIController::Tick(float DeltaTime)
 	//Aim at the player
 	auto AimingComponent = ControlledAirship->FindComponentByClass<UAirshipAimingComponent>();
 	AimingComponent->AimAt(PlayerAirship->GetActorLocation());
-	// ControlledAirship->Fire(); // TODO - don't fire at time 0
+	AimingComponent->Fire(); // TODO - don't fire at time 0
 	
 }

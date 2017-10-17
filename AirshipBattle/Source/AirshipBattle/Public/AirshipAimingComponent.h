@@ -4,7 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameFramework/Pawn.h"
 #include "AirshipAimingComponent.generated.h"
+
+class UAirshipBarrel; //forward declaration
+class UAirshipTurret; //forward declaration
+class AProjectile; //forward declaration
 
 //ENum for aiming state
 UENUM()
@@ -26,6 +31,9 @@ class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
 
 public:
 
+	UFUNCTION(BLueprintCallable, Category = Firing)
+	void Fire();
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet);
 
@@ -36,14 +44,23 @@ protected:
 	EFiringState FiringState = EFiringState::Loading;
 
 private:
+
 	// Sets default values for this component's properties
 	UAirshipAimingComponent();
 
 	UAirshipBarrel* Barrel = nullptr;
 	UAirshipTurret* Turret = nullptr;
+
 	void MoveBarrelTowards(FVector AimDirection);
-	void MoveTurretTowards(FVector AimDirection);
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 10000;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
 };

@@ -3,6 +3,7 @@
 #include "AirshipAimingComponent.h"
 #include "AirshipBarrel.h"
 #include "AirshipTurret.h"
+#include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -11,6 +12,7 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
+	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = false; 
 
 	// ...
@@ -25,7 +27,6 @@ void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirsh
 void UAirshipAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure(Barrel)) { return; }
-	if (!ensure(Turret)) { return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
@@ -59,4 +60,23 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	Barrel->Rotate(DeltaRotator.Yaw);
 	Turret->Elevate(DeltaRotator.Pitch);
+}
+
+void UAirshipAimingComponent::Fire()
+{
+	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if (isReloaded)
+	{
+		//spawn a projectile at the socket location on the barrel
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }
