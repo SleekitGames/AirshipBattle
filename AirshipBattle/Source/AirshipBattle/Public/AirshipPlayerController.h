@@ -6,7 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "AirshipPlayerController.generated.h" //must be last include
 
-class AAirship;
 class UAirshipAimingComponent;
 
 /**
@@ -19,8 +18,6 @@ class AIRSHIPBATTLE_API AAirshipPlayerController : public APlayerController
 
 
 protected:
-		UFUNCTION(BlueprintCallable, Category = "Setup")
-		AAirship* GetControlledAirship() const;
 
 		UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UAirshipAimingComponent* AimingComponentReference);

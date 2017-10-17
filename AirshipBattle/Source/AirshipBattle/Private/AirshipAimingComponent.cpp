@@ -22,7 +22,7 @@ void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirsh
 	Turret = PortTurretToSet;
 }
 
-void UAirshipAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UAirshipAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure(Barrel)) { return; }
 	if (!ensure(Turret)) { return; }

@@ -25,10 +25,11 @@ class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet);
 
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -42,4 +43,7 @@ private:
 	UAirshipTurret* Turret = nullptr;
 	void MoveBarrelTowards(FVector AimDirection);
 	void MoveTurretTowards(FVector AimDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 10000;
 };

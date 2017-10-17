@@ -8,7 +8,6 @@
 
 class UAirshipBarrel; //forward declaration
 class UAirshipTurret; //forward declaration
-class UAirshipAimingComponent; //forward declaration
 class AProjectile; //forward declaration
 
 UCLASS()
@@ -17,14 +16,11 @@ class AIRSHIPBATTLE_API AAirship : public APawn
 	GENERATED_BODY()
 
 public:
-	void AimAt(FVector HitLocation);
+//	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BLueprintCallable, Category = Firing)
 	void Fire();
 
-protected:
-	UPROPERTY(BlueprintReadOnly)
-	UAirshipAimingComponent* AirshipAimingComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
@@ -38,8 +34,8 @@ private:
 
 
 	//TODO remove once firing is moved to aiming component
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-		float LaunchSpeed = 10000; //100m/s TODO find sensible default speed.
+//	UPROPERTY(EditDefaultsOnly, Category = Firing)
+//		float LaunchSpeed = 10000; 
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 		float ReloadTimeInSeconds = 3;

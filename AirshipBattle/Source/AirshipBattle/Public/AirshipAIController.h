@@ -6,7 +6,7 @@
 #include "AIController.h"
 #include "AirshipAIController.generated.h"
 
-class AAirship;
+class UAirshipAimingComponent;
 
 /**
  * 
@@ -15,6 +15,13 @@ UCLASS()
 class AIRSHIPBATTLE_API AAirshipAIController : public AAIController
 {
 	GENERATED_BODY()
+
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UAirshipAimingComponent* AimingComponentReference);
+
+
 
 private:
 	

@@ -2,26 +2,14 @@
 
 #include "AirshipPlayerController.h"
 #include "AirshipAimingComponent.h"
-#include "Airship.h"
 #include "AirshipBattle.h"
-
-
-//Tick
-//Super
-//AimTowardsCrosshair
-
 
 
 void AAirshipPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
-	auto AimingComponent = GetControlledAirship()->FindComponentByClass<UAirshipAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UAirshipAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
-	else
-	{
-		FoundAimingComponent(AimingComponent);
-	}
-
 	FoundAimingComponent(AimingComponent);
 }
 
@@ -31,19 +19,15 @@ void AAirshipPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-AAirship* AAirshipPlayerController::GetControlledAirship() const 
-{
-	return Cast<AAirship>(GetPawn());
-}
-
 void AAirshipPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledAirship())) { return; }
+	auto AimingComponent = GetPawn()->FindComponentByClass<UAirshipAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace
 	{
-		GetControlledAirship()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 		//UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
 	}
 }

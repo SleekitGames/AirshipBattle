@@ -3,7 +3,6 @@
 #include "Airship.h"
 #include "AirshipBarrel.h"
 #include "Projectile.h"
-#include "AirshipAimingComponent.h"
 
 // Sets default values
 AAirship::AAirship()
@@ -16,15 +15,8 @@ AAirship::AAirship()
 void AAirship::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	AirshipAimingComponent = FindComponentByClass<UAirshipAimingComponent>();
 }
 
-void AAirship::AimAt(FVector HitLocation)
-{
-	if (!ensure(AirshipAimingComponent)) { return; }
-	AirshipAimingComponent->AimAt(HitLocation, LaunchSpeed);
-}
 
 void AAirship::Fire()
 {
@@ -40,7 +32,7 @@ void AAirship::Fire()
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
 
-		Projectile->LaunchProjectile(LaunchSpeed);
+//		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 	}
 }
