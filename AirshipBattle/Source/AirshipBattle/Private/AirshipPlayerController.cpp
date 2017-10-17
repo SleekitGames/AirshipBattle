@@ -16,14 +16,12 @@ void AAirshipPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	auto AimingComponent = GetControlledAirship()->FindComponentByClass<UAirshipAimingComponent>();
-	if (ensure(AimingComponent))
+	if (!ensure(AimingComponent)) { return; }
+	else
 	{
 		FoundAimingComponent(AimingComponent);
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player controller can't find aiming component at Begin Play"));
-	}
+
 	FoundAimingComponent(AimingComponent);
 }
 
