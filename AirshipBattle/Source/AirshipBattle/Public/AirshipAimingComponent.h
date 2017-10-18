@@ -55,7 +55,12 @@ private:
 	UAirshipBarrel* Barrel = nullptr;
 	UAirshipTurret* Turret = nullptr;
 
+
+
+	//void MoveBarrelTowards(FVector AimDirection);
 	void MoveBarrelTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 10000;
@@ -67,4 +72,7 @@ private:
 	float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;
+
+	FVector AimDirection;
+
 };

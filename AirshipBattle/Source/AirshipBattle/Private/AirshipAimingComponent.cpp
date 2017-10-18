@@ -23,19 +23,33 @@ void UAirshipAimingComponent::BeginPlay()
 	LastFireTime = FPlatformTime::Seconds();
 }
 
-void UAirshipAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
-{
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
-	{
-		FiringState = EFiringState::Loading;
-	}
-	//TODO Handle aiming and locked states.
-}
-
 void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet)
 {
 	Barrel = PortBarrelToSet;
 	Turret = PortTurretToSet;
+}
+
+void UAirshipAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Loading;
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else 
+	{
+		FiringState = EFiringState::ReadyToFire;
+	}
+}
+
+bool UAirshipAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+	auto BarrelForward = Barrel->GetForwardVector();
+	return !BarrelForward.Equals(AimDirection, 0.01);
 }
 
 void UAirshipAimingComponent::AimAt(FVector HitLocation)
@@ -58,7 +72,7 @@ void UAirshipAimingComponent::AimAt(FVector HitLocation)
 
 	if (bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
 
@@ -79,7 +93,7 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 void UAirshipAimingComponent::Fire()
 {
 
-	if (FiringState! = EFiringState::Loading)
+	if (FiringState != EFiringState::Loading)
 	{
 		//spawn a projectile at the socket location on the barrel
 		if (!ensure(ProjectileBlueprint)) { return; }
