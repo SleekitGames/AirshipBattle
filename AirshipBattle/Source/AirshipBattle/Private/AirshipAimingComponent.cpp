@@ -13,9 +13,23 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = false; 
+	PrimaryComponentTick.bCanEverTick = true; 
 
 	// ...
+}
+void UAirshipAimingComponent::BeginPlay()
+{
+	// so can't fire at time = 0
+	LastFireTime = FPlatformTime::Seconds();
+}
+
+void UAirshipAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Loading;
+	}
+	//TODO Handle aiming and locked states.
 }
 
 void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet)
@@ -64,12 +78,12 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UAirshipAimingComponent::Fire()
 {
-	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (isReloaded)
+	if (FiringState! = EFiringState::Loading)
 	{
 		//spawn a projectile at the socket location on the barrel
+		if (!ensure(ProjectileBlueprint)) { return; }
+		if (!ensure(Barrel)) { return; }
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
@@ -77,6 +91,6 @@ void UAirshipAimingComponent::Fire()
 			);
 
 		Projectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
+
 	}
 }
