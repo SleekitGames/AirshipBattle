@@ -13,23 +13,27 @@ UCLASS(meta = (BlueprintSpawnableComponent))
 class AIRSHIPBATTLE_API UAirshipRotor : public UStaticMeshComponent
 {
 	GENERATED_BODY()
-	
-public:
-	UFUNCTION(BlueprintCallable,Category = Input)
-	void SetThrottle(float Throttle);
 
-	//Max force per rotor in Newtons
-	UPROPERTY(EditDefaultsOnly, Category = Input)
-		float RotorMaxDrivingForce = 10000000;
-	
+public:
+	// Sets a throttle between -1 and +1
+	UFUNCTION(BlueprintCallable, Category = "Input")
+		void SetThrottle(float Throttle);
+
+	// Max force per track, in Newtons
+	UPROPERTY(EditDefaultsOnly)
+		float RotorMaxDrivingForce = 10000000; // Assume 100 tonne airship, and 1g accelleration
+
 private:
 	UAirshipRotor();
 
 	virtual void BeginPlay() override;
 
-	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+	void ApplySidewaysForce();
 
 	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 
+	void DriveRotor();
+
+	float CurrentThrottle = 0;
 };

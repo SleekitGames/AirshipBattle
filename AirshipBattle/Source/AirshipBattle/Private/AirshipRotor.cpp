@@ -4,7 +4,7 @@
 
 UAirshipRotor::UAirshipRotor()
 {
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 void UAirshipRotor::BeginPlay() 
@@ -14,30 +14,33 @@ void UAirshipRotor::BeginPlay()
 
 void UAirshipRotor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("I'm hit, I'm hit!"))
+	DriveRotor();
+	ApplySidewaysForce();
+	CurrentThrottle = 0;
 }
 
-void UAirshipRotor::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+void UAirshipRotor::ApplySidewaysForce()
 {
-	//Super::TickComponent();
-
-	//calculate slippage speed
+	// Work-out the required acceleration this frame to correct
 	auto SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
-	//work out required accelleration this frame to correct
+	auto DeltaTime = GetWorld()->GetDeltaSeconds();
 	auto CorrectionAcceleration = -SlippageSpeed / DeltaTime * GetRightVector();
-	//calculate and apply sideways force (F=ma)
+
+	// Calculate and apply sideways (F = m a)
 	auto AirshipRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
-	auto CorrectionForce = AirshipRoot->GetMass() * CorrectionAcceleration / 4; //4 rotors
+	auto CorrectionForce = (AirshipRoot->GetMass() * CorrectionAcceleration) / 4; // four rotors
 	AirshipRoot->AddForce(CorrectionForce);
 }
 
 void UAirshipRotor::SetThrottle(float Throttle)
 {
-	//TODO clamp actual throttle value so player can't overdrive
+	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
+}
 
-	auto ForceApplied = GetForwardVector() * Throttle * RotorMaxDrivingForce;
+void UAirshipRotor::DriveRotor()
+{
+	auto ForceApplied = GetForwardVector() * CurrentThrottle * RotorMaxDrivingForce;
 	auto ForceLocation = GetComponentLocation();
 	auto AirshipRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	AirshipRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
-
