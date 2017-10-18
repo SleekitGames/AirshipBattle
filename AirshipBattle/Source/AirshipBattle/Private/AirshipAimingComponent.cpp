@@ -105,6 +105,6 @@ void UAirshipAimingComponent::Fire()
 			);
 
 		Projectile->LaunchProjectile(LaunchSpeed);
-
+		LastFireTime = FPlatformTime::Seconds();
 	}
 }

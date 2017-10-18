@@ -20,6 +20,12 @@ public:
 
 	//Max force per rotor in Newtons
 	UPROPERTY(EditDefaultsOnly, Category = Input)
-		float RotorMaxDrivingForce = 20000000;
+		float RotorMaxDrivingForce = 10000000;
 	
+private:
+	UAirshipRotor();
+
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+
 };

@@ -21,6 +21,7 @@ void AAirshipPlayerController::Tick(float DeltaTime)
 
 void AAirshipPlayerController::AimTowardsCrosshair()
 {
+	if (!GetPawn()) { return; } //eg if not possessing
 	auto AimingComponent = GetPawn()->FindComponentByClass<UAirshipAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 
