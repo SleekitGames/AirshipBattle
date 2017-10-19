@@ -12,8 +12,7 @@ UAirshipAimingComponent::UAirshipAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = true; 
+	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
@@ -43,6 +42,11 @@ void UAirshipAimingComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 	{
 		FiringState = EFiringState::ReadyToFire;
 	}
+}
+
+EFiringState UAirshipAimingComponent::GetFiringState() const
+{
+	return FiringState;
 }
 
 bool UAirshipAimingComponent::IsBarrelMoving()
@@ -77,6 +81,8 @@ void UAirshipAimingComponent::AimAt(FVector HitLocation)
 	}
 
 }
+
+
 
 void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {

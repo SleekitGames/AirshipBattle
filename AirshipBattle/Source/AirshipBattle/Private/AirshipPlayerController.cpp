@@ -27,7 +27,6 @@ void AAirshipPlayerController::AimTowardsCrosshair()
 
 	FVector HitLocation; // Out parameter
 	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
-	UE_LOG(LogTemp, Warning, TEXT("GotHitLocation: %i"), bGotHitLocation);
 
 	if (bGotHitLocation) // Has "side-effect", is going to line trace
 	{
@@ -43,7 +42,6 @@ bool AAirshipPlayerController::GetSightRayHitLocation(FVector& HitLocation) cons
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-	//UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"), *ScreenLocation.ToString());
 	
 	//deproject screen position of crosshair to world direction
 	FVector LookDirection;

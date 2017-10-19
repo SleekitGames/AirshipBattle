@@ -21,11 +21,12 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UAirshipAimingComponent* AimingComponentReference);
 
-
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000;
 
 private:
 	
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-	float AcceptanceRadius = 3000;
+
 };
