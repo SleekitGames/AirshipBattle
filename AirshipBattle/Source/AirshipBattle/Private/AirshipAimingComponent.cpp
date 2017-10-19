@@ -86,7 +86,16 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Rotate(DeltaRotator.Yaw);
+	//Always yaw shortest way for 360° cannons
+	if (FMath::Abs(DeltaRotator.Yaw) < 180)
+	{
+		Barrel->Rotate(DeltaRotator.Yaw);
+	}
+	else
+	{
+		Barrel->Rotate(-DeltaRotator.Yaw);
+	}
+
 	Turret->Elevate(DeltaRotator.Pitch);
 }
 

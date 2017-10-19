@@ -19,7 +19,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 		void SetThrottle(float Throttle);
 
-	// Max force per track, in Newtons
+	// Max force per rotor, in Newtons
 	UPROPERTY(EditDefaultsOnly)
 		float RotorMaxDrivingForce = 10000000; // Assume 100 tonne airship, and 1g accelleration
 

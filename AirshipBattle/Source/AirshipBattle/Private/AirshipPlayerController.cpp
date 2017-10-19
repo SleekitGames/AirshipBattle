@@ -26,10 +26,12 @@ void AAirshipPlayerController::AimTowardsCrosshair()
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation; // Out parameter
-	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	UE_LOG(LogTemp, Warning, TEXT("GotHitLocation: %i"), bGotHitLocation);
+
+	if (bGotHitLocation) // Has "side-effect", is going to line trace
 	{
 		AimingComponent->AimAt(HitLocation);
-		//UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
 	}
 }
 
@@ -48,12 +50,10 @@ bool AAirshipPlayerController::GetSightRayHitLocation(FVector& HitLocation) cons
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		//linetrace along look direction - see what we hit.
-		GetLookVectorHitLocation(LookDirection, HitLocation);
-		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *LookDirection.ToString());
+		return GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
-
-	
-	return true;
+		
+	return false;
 }
 
 bool AAirshipPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
