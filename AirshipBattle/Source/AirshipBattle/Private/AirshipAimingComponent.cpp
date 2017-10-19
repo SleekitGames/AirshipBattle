@@ -54,7 +54,7 @@ EFiringState UAirshipAimingComponent::GetFiringState() const
 	return FiringState;
 }
 
-int UAirshipAimingComponent::GetRoundsLeft() const
+int32 UAirshipAimingComponent::GetRoundsLeft() const
 {
 	return RoundsLeft;
 }
