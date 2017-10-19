@@ -20,6 +20,7 @@ void UAirshipAimingComponent::BeginPlay()
 {
 	// so can't fire at time = 0
 	LastFireTime = FPlatformTime::Seconds();
+	RoundsLeft = 3;
 }
 
 void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirshipTurret* PortTurretToSet)
@@ -30,7 +31,11 @@ void UAirshipAimingComponent::Initialise(UAirshipBarrel* PortBarrelToSet, UAirsh
 
 void UAirshipAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	if (RoundsLeft <= 0)
+	{
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Loading;
 	}
@@ -47,6 +52,11 @@ void UAirshipAimingComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 EFiringState UAirshipAimingComponent::GetFiringState() const
 {
 	return FiringState;
+}
+
+int UAirshipAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
 }
 
 bool UAirshipAimingComponent::IsBarrelMoving()
@@ -108,7 +118,7 @@ void UAirshipAimingComponent::MoveBarrelTowards(FVector AimDirection)
 void UAirshipAimingComponent::Fire()
 {
 
-	if (FiringState != EFiringState::Loading)
+	if (FiringState == EFiringState::ReadyToFire || FiringState == EFiringState::Aiming)
 	{
 		//spawn a projectile at the socket location on the barrel
 		if (!ensure(ProjectileBlueprint)) { return; }
@@ -121,5 +131,6 @@ void UAirshipAimingComponent::Fire()
 
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		RoundsLeft--; //takes 1 off ammo count
 	}
 }

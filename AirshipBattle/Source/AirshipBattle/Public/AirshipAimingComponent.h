@@ -17,7 +17,8 @@ enum class EFiringState : uint8
 	{
 		Loading,
 		Aiming,
-		ReadyToFire
+		ReadyToFire,
+		OutOfAmmo
 	};
 
 //forward declaration
@@ -31,7 +32,7 @@ class AIRSHIPBATTLE_API UAirshipAimingComponent : public UActorComponent
 
 public:
 
-	UFUNCTION(BLueprintCallable, Category = Firing)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
@@ -40,6 +41,10 @@ public:
 	void AimAt(FVector HitLocation);
 
 	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetRoundsLeft() const;
+
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -76,5 +81,7 @@ private:
 	double LastFireTime = 0;
 
 	FVector AimDirection;
+
+	int RoundsLeft = 3;
 
 };
