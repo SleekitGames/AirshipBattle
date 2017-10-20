@@ -3,6 +3,11 @@
 #include "Airship.h"
 
 
+float AAirship::GetHealthPercent() const
+{
+	return (float)CurrentHealth / (float)StartingHealth;
+}
+
 // Sets default values
 AAirship::AAirship()
 {
