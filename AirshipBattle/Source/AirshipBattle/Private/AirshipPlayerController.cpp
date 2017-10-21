@@ -95,7 +95,7 @@ bool AAirshipPlayerController::GetLookVectorHitLocation(FVector LookDirection, F
 			HitResult,
 			StartLocation,
 			EndLocation,
-			ECollisionChannel::ECC_Visibility)
+			ECollisionChannel::ECC_Camera)
 		)
 	{
 		HitLocation = HitResult.Location;
