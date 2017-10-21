@@ -22,8 +22,13 @@ protected:
 		UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UAirshipAimingComponent* AimingComponentReference);
 
+		UFUNCTION()
+		void OnPossessedAirshipDeath();
+
 private:
 	
+	void SetPawn(APawn * InPawn);
+
 	//BEGINPLAY
 	virtual void BeginPlay() override;
 

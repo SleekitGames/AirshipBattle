@@ -1,9 +1,29 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "AirshipPlayerController.h"
+#include "Airship.h"
 #include "AirshipAimingComponent.h"
 #include "AirshipBattle.h"
 
+
+void AAirshipPlayerController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedAirship = Cast<AAirship>(InPawn);
+		if (!ensure(PossessedAirship)) { return; }
+
+		//subscribe our local method to airship death event
+		PossessedAirship->OnDeath.AddUniqueDynamic(this, &AAirshipPlayerController::OnPossessedAirshipDeath);
+	}
+}
+
+void AAirshipPlayerController::OnPossessedAirshipDeath()
+{
+	if (!(GetPawn())) { return; }
+	StartSpectatingOnly();
+}
 
 void AAirshipPlayerController::BeginPlay() 
 {

@@ -15,6 +15,11 @@ AAirship::AAirship()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void AAirship::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+}
 
 float AAirship::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser)
 {

@@ -28,7 +28,8 @@ void AAirshipAIController::SetPawn(APawn* InPawn)
 
 void AAirshipAIController::OnPossessedAirshipDeath() 
 {
-
+	if(!(GetPawn())){return;}
+	GetPawn()->DetachFromControllerPendingDestroy();
 }
 
 void AAirshipAIController::Tick(float DeltaTime)
