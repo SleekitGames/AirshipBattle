@@ -6,7 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "Airship.generated.h" //must be last include - add others before
 
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAirshipDelegate);
 
 UCLASS()
 class AIRSHIPBATTLE_API AAirship : public APawn
@@ -20,6 +20,8 @@ public:
 	//returns current health as a percentage of starting health between 0 and 1
 	UFUNCTION(BlueprintPure, Category ="Health")
 	float GetHealthPercent() const;
+
+	FAirshipDelegate OnDeath;
 
 private:
 	// Sets default values for this pawn's properties

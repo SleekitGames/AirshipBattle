@@ -24,6 +24,7 @@ float AAirship::TakeDamage(float DamageAmount, struct FDamageEvent const & Damag
 	CurrentHealth -= DamageToApply;
 	if (CurrentHealth <= 0)
 	{
+		OnDeath.Broadcast();
 		UE_LOG(LogTemp, Warning, TEXT("Airship died"))
 	}
 	return DamageToApply;

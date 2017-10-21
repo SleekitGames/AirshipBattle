@@ -4,15 +4,31 @@
 #include "AirshipAimingComponent.h"
 #include "AirshipBattle.h"
 #include "Engine/World.h"
+#include "Airship.h"
 //depends on movement component via pathfinding system
 
 
 void AAirshipAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	auto AimingComponent = GetPawn()->FindComponentByClass<UAirshipAimingComponent>();
-	if (!ensure(AimingComponent)) { return; }
-	FoundAimingComponent(AimingComponent);
+}
+
+void AAirshipAIController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn) 
+	{
+		auto PossessedAirship = Cast<AAirship>(InPawn);
+		if (!ensure(PossessedAirship)) { return; }
+
+		//subscribe our local method to airship death event
+		PossessedAirship->OnDeath.AddUniqueDynamic(this, &AAirshipAIController::OnPossessedAirshipDeath);
+	}
+}
+
+void AAirshipAIController::OnPossessedAirshipDeath() 
+{
+
 }
 
 void AAirshipAIController::Tick(float DeltaTime)
